@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="signup" location="241,129" size="379,99">
+    <action name="signup" location="12,20" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="signup.jsp&#xD;&#xA;&#x9;&#x9;&#x9;" />
+      </result>
+    </action>
+  </package>
+  <webResource name="signup.jsp&#xD;&#xA;&#x9;&#x9;&#x9;" path="&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;/signup/signup.jsp&#xD;&#xA;&#x9;&#x9;&#x9;" location="50,350" size="150,55" />
+</Struts2Diagram>
+

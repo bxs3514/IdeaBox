@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.objectFactory" value="spring" />
+	<package name="signup" namespace="/signup" extends="struts-default">
+		<action name="signup" class="SignupAction">
+			<result name="success">/index.jsp</result>
+			<result name="error">/signup/signup.jsp</result>
+			<result name="input">/signup/signup.jsp</result>
+		</action>
+	</package>
+
+	<package name="report" namespace="/report" extends="struts-default,json-default">
+		<action name="getAnswers" class="ReportAction" method="getAnswers">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="report" class="ReportAction">
+			<result name="success">/report/report.jsp</result>
+		</action>
+	</package>
+
+	<package name="login" namespace="/login" extends="struts-default">
+		<action name="login" class="LoginAction">
+			<result name="success">/index.jsp</result>
+			<result name="error">/login/login.jsp</result>
+			<result name="input">/login/login.jsp</result>
+		</action>
+		<action name="logout" class="LogoutAction">
+			<result name="success">/index.jsp</result>
+			<result name="error">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+	</package>
+
+	<package name="quesParams" namespace="/questionnaire" extends="struts-default">
+		<action name="QuesSettings" class="QuesSettingAction">
+			<result name="success">/questionnaire/QuesSettings.jsp</result>
+			<result name="error">/questionnaire/QuesSettings.jsp</result>
+			<result name="input">/questionnaire/QuesSettings.jsp</result>
+		</action>
+	</package>
+
+	<package name="questionnaire" namespace="/questionnaire" extends="struts-default,json-default">
+		<action name="CloseQuestionnaire" class="CloseQuestionnaireAction">
+			<result name="success">/userdashboard/userdashboard.jsp</result>
+			<result name="error">/userdashboard/userdashboard.jsp</result>
+			<result name="input">/userdashboard/userdashboard.jsp</result>
+		</action>
+		<action name="AnswerQuestions" class="AnswerQuestionAction">
+			<result name="success">/questionnaire/AnswerQues.jsp</result>
+			<result name="error">/questionnaire/AnswerQues.jsp</result>
+			<result name="input">/questionnaire/AnswerQues.jsp</result>
+		</action>
+		<action name="preview" class="AnswerQuestionAction">
+			<result name="success">/questionnaire/preview.jsp</result>
+			<result name="error">/questionnaire/preview.jsp</result>
+			<result name="input">/questionnaire/preview.jsp</result>
+		</action>
+		<action name="FormQuestionnaire" class="FormQuestionAction" />
+		<action name="QuesCreate" class="QuesCreateAction">
+			<result name="success">/questionnaire/QuesContent.jsp</result>
+			<result name="error">/questionnaire/QuesTitle.jsp</result>
+			<result name="input">/questionnaire/QuesTitle.jsp</result>
+		</action>
+		<action name="SummitAnswers" class="SummitAnswerAction">
+			<result name="success">/questionnaire/SummitAnswers.jsp</result>
+			<result name="error">/questionnaire/SummitAnswers.jsp</result>
+			<result name="input">/questionnaire/AnswerQues.jsp?id=${qid}</result>
+		</action>
+
+		<action name="QuestionList" class="QuestionListAction">
+			<result name="success">/questionnaire/QuesList.jsp</result>
+			<result name="error">/questionnaire/QuesList.jsp</result>
+			<result name="input">/questionnaire/QuesList.jsp</result>
+		</action>
+		<action name="QuesContent" class="QuesContentAction">
+			<result name="success">/questionnaire/Success.jsp</result>
+			<result name="error">/questionnaire/Fail.jsp</result>
+			<result name="input">/questionnaire/Fail.jsp</result>
+		</action>
+		<action name="AnsweredQues" class="AnsweredQuesAction">
+			<result name="success">/questionnaire/AnsweredQues.jsp</result>
+			<result name="error">/questionnaire/AnsweredQues.jsp</result>
+			<result name="input">/questionnaire/AnsweredQues.jsp</result>
+		</action>
+	</package>
+
+	<package name="dashboard" namespace="/userdashboard" extends="struts-default">
+		<action name="CloseQuestionnaire" class="CloseQuestionnaireAction">
+			<result name="success" type="redirect">./UserDashboard!listPublished.action
+			</result>
+			<result name="error">/userdashboard/publishedques.jsp</result>
+			<result name="input">/userdashboard/publishedques.jsp</result>
+		</action>
+		<action name="ReopenQuestionnaire" class="ReopenQuestionnaireAction">
+			<result name="success" type="redirect">./UserDashboard!listPublished.action
+			</result>
+			<result name="error">/userdashboard/publishedques.jsp</result>
+			<result name="input">/userdashboard/publishedques.jsp</result>
+		</action>
+		<action name="UserDashboard" class="DashboardAction">
+			<result name="listPublished">/userdashboard/publishedques.jsp</result>
+			<result name="listAnswered">/userdashboard/answeredques.jsp</result>
+			<result name="closeQuestionnaire">/userdashboard/publishedques.jsp</result>
+			<result name="input">/userdashboard/answeredques.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action>
+		<action name="EditInformation" class="EditInformation">
+			<result name="success">/editInformation/editInformation.jsp</result>
+			<result name="error">/login/login.jsp</result>
+			<result name="input">/editInformation/editInformation.jsp</result>
+			<result name="view">/editInformation/editInformation.jsp</result>
+		</action>
+	</package>
+
+	<package name="adminDashboard" namespace="/admindashboard"
+		extends="struts-default">
+		<action name="AdminDashboard" class="AdminDashboardAction">
+			<result name="listUser">/admindashboard/AdminBoard4User.jsp
+			</result>
+			<result name="listQues">/admindashboard/AdminBoard4Ques.jsp
+			</result>
+			<result name="closeQues">/admindashboard/AdminDashboard!listQues.action
+			</result>
+			<result name="deleteUser" type="redirectAction">/AdminDashboard!listUser.action
+			</result>
+			<result name="deleteQues" type="redirectAction">/AdminDashboard!listQues.action
+			</result>
+			<result name="error">/index.jsp
+			</result>
+			<result name="input" type="redirectAction">
+				/AdminDashboardAction!listUser.action
+			</result>
+		</action>
+	</package>
+
+</struts>

@@ -1,0 +1,18 @@
+#report-pane {
+	width: 960px;
+	margin: auto;
+}
+.question {
+	margin: auto;
+	margin-bottom: 30px;
+}
+
+.essay-container {
+	height: 500px;
+	overflow: auto;
+}
+.question-graph {
+}
+
+.question-items {
+}

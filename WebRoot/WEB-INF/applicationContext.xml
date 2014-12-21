@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/ideabox">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>data/User.hbm.xml</value>
+				<value>data/Result.hbm.xml</value>
+				<value>data/Question.hbm.xml</value>
+				<value>data/Questionnaire.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="UserDAO" class="data.UserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="SignupAction" class="signup.Signup" scope="prototype">
+		<property name="userDAO">
+			<ref bean="UserDAO" />
+		</property>
+	</bean>
+	<bean id="QuesCreateAction" class="questionnaire.QuesCreate" scope="prototype"></bean>
+	<bean id="QuesContentAction" class="questionnaire.QuesContent" scope="prototype">
+		<property name="questionnaireDAO" >
+			<ref bean="QuestionnaireDAO" />
+		</property>
+		<property name="questionDAO">
+			<ref bean="QuestionDAO" />
+		</property>
+	</bean>
+	<bean id="ReportAction" class="report.ReportAction">
+		<property name="questionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+		<property name="questionDAO">
+			<ref bean="QuestionDAO" />
+		</property>
+		<property name="resultDAO">
+			<ref bean="ResultDAO" />
+		</property>
+	</bean>
+
+	<bean id="AnswerQuestionAction" class="questionnaire.AnswerQuestions"
+		scope="prototype">
+		<property name="questionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+		<property name="fq">
+			<ref bean="FormQuestionAction" />
+		</property>
+	</bean>
+	<bean id="AnsweredQuesAction" class="questionnaire.AnsweredQues" scope="prototype">
+		<property name="resultDAO">
+			<ref bean="ResultDAO" />
+		</property>
+		<property name="fq">
+			<ref bean="FormQuestionAction" />
+		</property>
+
+	</bean>
+	<bean id="FormQuestionAction" class="questionnaire.FormQuestionnaire"
+		scope="prototype">
+		<property name="questionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+		<property name="questionDAO">
+			<ref bean="QuestionDAO" />
+		</property>
+
+
+	</bean>
+
+	<bean id="QuestionsAction" class="questionnaire.Questions" scope="prototype">
+		<property name="questionDAO" >
+			<ref bean="QuestionDAO" />
+		</property>
+	</bean>
+
+	<bean id="SummitAnswerAction" class="questionnaire.SummitAnswer"
+		scope="prototype">
+		<property name="resultDAO">
+			<ref bean="ResultDAO" />
+		</property>
+	</bean>
+	<bean id="QuesSettingAction" class="quesParams.QuesParams">
+		<property name="questionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+	</bean>
+
+	<bean id="LoginAction" class="login.Login" scope="prototype">
+		<property name="userDAO">
+			<ref bean="UserDAO" />
+		</property>
+	</bean>
+
+	<bean id="LogoutAction" class="login.Logout">
+	</bean>
+
+
+	<bean id="CloseQuestionnaireAction" class="dashboard.CloseQuestionnaire">
+		<property name="closeQuestionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+	</bean>
+
+	<bean id="ReopenQuestionnaireAction" class="dashboard.ReopenQuestionnaire">
+		<property name="reopenQuestionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+	</bean>
+
+	<bean id="DashboardAction" class="dashboard.DashboardAction">
+		<property name="questionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+		<property name="resultDAO">
+			<ref bean="ResultDAO" />
+		</property>
+	</bean>
+
+	<bean id="EditInformation" class="dashboard.EditInformation"
+		scope="prototype">
+		<property name="userDAO">
+			<ref bean="UserDAO" />
+		</property>
+	</bean>
+
+
+	<bean id="QuestionListAction" class="questionnaire.QuestionList">
+		<property name="questionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+	</bean>
+
+	<bean id="ResultDAO" class="data.ResultDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="QuestionDAO" class="data.QuestionDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="QuestionnaireDAO" class="data.QuestionnaireDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="AdminDashboardAction" class="adminDashboard.AdminDashboard">
+		<property name="userDAO">
+			<ref bean="UserDAO" />
+		</property>
+		<property name="questionnaireDAO">
+			<ref bean="QuestionnaireDAO" />
+		</property>
+		<property name="resultDAO">
+			<ref bean="ResultDAO" />
+		</property>
+	</bean>
+
+</beans>
+
